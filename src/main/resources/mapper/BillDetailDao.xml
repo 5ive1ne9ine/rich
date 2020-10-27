@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oldduck.home.rich.dao.BillDetailDao">
+  <resultMap id="BaseResultMap" type="com.oldduck.home.rich.dto.BillDetailDto">
+    <id column="SERIALNO" jdbcType="INTEGER" property="serialno" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="MONEYTYPE" jdbcType="VARCHAR" property="moneytype" />
+    <result column="FLOW" jdbcType="VARCHAR" property="flow" />
+    <result column="BILLTYPE" jdbcType="VARCHAR" property="billtype" />
+    <result column="BILLDATE" jdbcType="VARCHAR" property="billdate" />
+    <result column="OUTACCOUNT" jdbcType="VARCHAR" property="outaccount" />
+    <result column="INACCOUNT" jdbcType="VARCHAR" property="inaccount" />
+    <result column="INSERTTIME" jdbcType="TIMESTAMP" property="inserttime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SERIALNO, USERID, AMOUNT, MONEYTYPE, FLOW, BILLTYPE, BILLDATE, OUTACCOUNT, INACCOUNT, 
+    INSERTTIME, UPDATETIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BILL_DETAIL
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BILL_DETAIL
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="SERIALNO" keyProperty="serialno" parameterType="com.oldduck.home.rich.dto.BillDetailDto" useGeneratedKeys="true">
+    insert into BILL_DETAIL (USERID, AMOUNT, MONEYTYPE, 
+      FLOW, BILLTYPE, BILLDATE, 
+      OUTACCOUNT, INACCOUNT, INSERTTIME, 
+      UPDATETIME)
+    values (#{userid,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{moneytype,jdbcType=VARCHAR}, 
+      #{flow,jdbcType=VARCHAR}, #{billtype,jdbcType=VARCHAR}, #{billdate,jdbcType=VARCHAR}, 
+      #{outaccount,jdbcType=VARCHAR}, #{inaccount,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="SERIALNO" keyProperty="serialno" parameterType="com.oldduck.home.rich.dto.BillDetailDto" useGeneratedKeys="true">
+    insert into BILL_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="moneytype != null">
+        MONEYTYPE,
+      </if>
+      <if test="flow != null">
+        FLOW,
+      </if>
+      <if test="billtype != null">
+        BILLTYPE,
+      </if>
+      <if test="billdate != null">
+        BILLDATE,
+      </if>
+      <if test="outaccount != null">
+        OUTACCOUNT,
+      </if>
+      <if test="inaccount != null">
+        INACCOUNT,
+      </if>
+      <if test="inserttime != null">
+        INSERTTIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="moneytype != null">
+        #{moneytype,jdbcType=VARCHAR},
+      </if>
+      <if test="flow != null">
+        #{flow,jdbcType=VARCHAR},
+      </if>
+      <if test="billtype != null">
+        #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="billdate != null">
+        #{billdate,jdbcType=VARCHAR},
+      </if>
+      <if test="outaccount != null">
+        #{outaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="inaccount != null">
+        #{inaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oldduck.home.rich.dto.BillDetailDto">
+    update BILL_DETAIL
+    <set>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="moneytype != null">
+        MONEYTYPE = #{moneytype,jdbcType=VARCHAR},
+      </if>
+      <if test="flow != null">
+        FLOW = #{flow,jdbcType=VARCHAR},
+      </if>
+      <if test="billtype != null">
+        BILLTYPE = #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="billdate != null">
+        BILLDATE = #{billdate,jdbcType=VARCHAR},
+      </if>
+      <if test="outaccount != null">
+        OUTACCOUNT = #{outaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="inaccount != null">
+        INACCOUNT = #{inaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oldduck.home.rich.dto.BillDetailDto">
+    update BILL_DETAIL
+    set USERID = #{userid,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      MONEYTYPE = #{moneytype,jdbcType=VARCHAR},
+      FLOW = #{flow,jdbcType=VARCHAR},
+      BILLTYPE = #{billtype,jdbcType=VARCHAR},
+      BILLDATE = #{billdate,jdbcType=VARCHAR},
+      OUTACCOUNT = #{outaccount,jdbcType=VARCHAR},
+      INACCOUNT = #{inaccount,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </update>
+</mapper>

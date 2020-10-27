@@ -1,0 +1,19 @@
+logging:
+  level: 
+    com: info
+  file:
+    path: D:/
+    name: rich.log
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.108.127.244:3306/homebill?useUnicode=true&characterEncoding=gbk
+    username: root
+    password: Chh4436635*
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-idle: 5
+      max-wait-millis: 200
