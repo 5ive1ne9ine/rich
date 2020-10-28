@@ -85,8 +85,7 @@ public class DataSourceConfig {
      */
     @Bean(name = "sqlSessionFactory")
     @Primary
-    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("dataSoure") DataSource datasource)
-            throws Exception {
+    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("dataSoure") DataSource datasource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(datasource);
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(XML_SOURCE_FILE_PATH));
