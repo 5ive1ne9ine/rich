@@ -1,8 +1,8 @@
 package com.oldduck.home.rich.manager.impl;
 
-import com.oldduck.home.rich.dao.BillDetailDao;
 import com.oldduck.home.rich.dto.BillDetailDto;
 import com.oldduck.home.rich.manager.BillManager;
+import com.oldduck.home.rich.mapper.BillDetailMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ public class BillManagerImpl implements BillManager {
     private Logger logger = LoggerFactory.getLogger(BillManagerImpl.class);
     
     @Autowired
-    private BillDetailDao billDetailDao;
+    private BillDetailMapper billDetailMapper;
     
     @Override
     public void addBill(BillDetailDto billDetailDto) {
-        billDetailDao.insert(billDetailDto);
+        billDetailMapper.insert(billDetailDto);
     }
 }

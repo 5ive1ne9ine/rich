@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  * @date ：Created in 2020/10/27 14:31
  */
 @Configuration
-@MapperScan(basePackages = "com.oldduck.home.rich.dao")
+@MapperScan(basePackages = "com.oldduck.home.rich.mapper")
 public class DataSourceConfig {
 
     private static final String CONFIG_PRIX = "spring.datasource.";

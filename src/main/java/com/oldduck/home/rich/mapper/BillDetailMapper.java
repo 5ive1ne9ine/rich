@@ -1,8 +1,8 @@
-package com.oldduck.home.rich.dao;
+package com.oldduck.home.rich.mapper;
 
 import com.oldduck.home.rich.dto.BillDetailDto;
 
-public interface BillDetailDao {
+public interface BillDetailMapper {
     int deleteByPrimaryKey(Integer serialno);
 
     int insert(BillDetailDto record);
