@@ -12,7 +12,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily 配置日志所生成的目录以及生成文件名的规则 -->
-            <fileNamePattern>/mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>D:/mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!---定时器日志目录-->
             <!--<fileNamePattern>/home/chensir/xinxun/xinxun_appi_scheduler/logs/mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
