@@ -28,7 +28,8 @@ public class BillController {
     }
 
     @RequestMapping("/delBill")
-    public String delBill() {
+    public String delBill(@RequestBody String serialno) {
+        billManager.deleteBill(serialno);
         return "html/index.html";
     }
     

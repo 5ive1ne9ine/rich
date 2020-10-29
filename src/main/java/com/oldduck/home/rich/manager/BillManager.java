@@ -4,4 +4,6 @@ import com.oldduck.home.rich.dto.BillDetailDto;
 
 public interface BillManager {
     void addBill(BillDetailDto billDetailDto);
+
+    void deleteBill(String serialno);
 }

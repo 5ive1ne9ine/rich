@@ -31,6 +31,11 @@ public class BillManagerImpl implements BillManager {
         billDetailMapper.insert(billDetailDto);
     }
 
+    @Override
+    public void deleteBill(String serialno) {
+        billDetailMapper.deleteByPrimaryKey(Integer.parseInt(serialno));
+    }
+
     private void IOVerify(BillDetailDto billDetail) {
         if (StringUtils.isEmpty(billDetail.getFlow())) {
             throw new ApiException(ResultCode.FLOW_ISEMPTY$1001);
