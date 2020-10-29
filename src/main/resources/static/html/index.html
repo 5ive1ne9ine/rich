@@ -15,8 +15,8 @@
     <!-- Custom styles for this template -->
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
 
-<!--    <script src="../js/bootstrap.js"></script>-->
-<!--    <script src="../js/jquery.min.js"></script>-->
+    <!--    <script src="../js/bootstrap.js"></script>-->
+    <!--    <script src="../js/jquery.min.js"></script>-->
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -37,7 +37,7 @@
     <div class="jumbotron">
         <h1>不想花钱</h1>
         <p class="lead">持续大半年都只有这一句</p>
-<!--        <p><a class="btn btn-lg btn-success" href="#" οnclick="addBill();" data-toggle="modal" role="button">记一笔</a></p>-->
+        <!--        <p><a class="btn btn-lg btn-success" href="#" οnclick="addBill();" data-toggle="modal" role="button">记一笔</a></p>-->
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">记一笔</button>
     </div>
 
@@ -46,7 +46,8 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">增加流水</h4>
                 </div>
                 <div class="modal-body">
@@ -55,19 +56,37 @@
                             <label for="amount" class="control-label">金额:</label>
                             <input type="text" class="form-control" id="amount" placeholder="输入金额">
                         </div>
-                        <div class="form-group">
-                            <label for="flow" class="control-label">支出/收入/转账:</label>
-                            <input type="text" class="form-control" id="flow" placeholder="">
+
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="flow" class="control-label">支出/收入/转账:</label>-->
+                        <!--                            <input type="text" class="form-control" id="flow" placeholder="">-->
+                        <!--                        </div>-->
+                        <input type="hidden" id="flow" value="O" name="flow" />
+                        <div class="btn-group form-group">
+                            <label for="flowName" class="control-label">支出/收入/转账:</label>
+
+                            <button type="button" class="btn btn-default dropdown-toggle form-control"
+                                    data-toggle="dropdown" id="flowName">
+                                <span class="buttonText">支出</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" onclick="shows($(this).text())">收入</a></li>
+                                <li><a href="#" onclick="shows($(this).text())">转账</a></li>
+                                <li><a href="#" onclick="shows($(this).text())">支出</a></li>
+                            </ul>
                         </div>
+
+
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
                             <input type="text" class="form-control" id="date" placeholder="日期">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" hidden id="inAccountDev">
                             <label for="inAccount" class="control-label">转入账户:</label>
                             <input type="text" class="form-control" id="inAccount" placeholder="">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" hidden id="outAccountDev">
                             <label for="outAccount" class="control-label">转出账户:</label>
                             <input type="text" class="form-control" id="outAccount" placeholder="">
                         </div>
@@ -108,6 +127,26 @@
     <footer class="footer">
         <p>&copy; 2020 Company, Inc.</p>
     </footer>
+
+    <script>
+        function shows(a) {
+            $('.buttonText').text(a);
+            $('#flow').attr(convert(a));
+
+            window.alert($('#flow').val());
+        }
+
+        function convert(s) {
+            if (s == '支出') {
+                return "O";
+            } else if (s == '收入') {
+                return "I"
+            } else if (s == '转账') {
+                return "T";
+            }
+        }
+    </script>
+
 </div>
 </body>
 </html>
