@@ -7,13 +7,18 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon/B.ico">
 
     <title>Home Bill</title>
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+
+<!--    <script src="../js/bootstrap.js"></script>-->
+<!--    <script src="../js/jquery.min.js"></script>-->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -32,7 +37,48 @@
     <div class="jumbotron">
         <h1>不想花钱</h1>
         <p class="lead">持续大半年都只有这一句</p>
-        <p><a class="btn btn-lg btn-success" href="html/billDetail.html" role="button">记一笔</a></p>
+<!--        <p><a class="btn btn-lg btn-success" href="#" οnclick="addBill();" data-toggle="modal" role="button">记一笔</a></p>-->
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">记一笔</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">增加流水</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="amount" class="control-label">金额:</label>
+                            <input type="text" class="form-control" id="amount" placeholder="输入金额">
+                        </div>
+                        <div class="form-group">
+                            <label for="flow" class="control-label">支出/收入/转账:</label>
+                            <input type="text" class="form-control" id="flow" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="control-label">日期:</label>
+                            <input type="text" class="form-control" id="date" placeholder="日期">
+                        </div>
+                        <div class="form-group">
+                            <label for="inAccount" class="control-label">转入账户:</label>
+                            <input type="text" class="form-control" id="inAccount" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="outAccount" class="control-label">转出账户:</label>
+                            <input type="text" class="form-control" id="outAccount" placeholder="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">添加</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row marketing">
@@ -62,8 +108,6 @@
     <footer class="footer">
         <p>&copy; 2020 Company, Inc.</p>
     </footer>
-
-</div> <!-- /container -->
-
+</div>
 </body>
 </html>
