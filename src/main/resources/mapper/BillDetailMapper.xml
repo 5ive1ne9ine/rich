@@ -35,8 +35,8 @@
       UPDATETIME)
     values (#{userid,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{moneytype,jdbcType=VARCHAR}, 
       #{flow,jdbcType=VARCHAR}, #{billtype,jdbcType=VARCHAR}, #{billdate,jdbcType=VARCHAR}, 
-      #{outaccount,jdbcType=VARCHAR}, #{inaccount,jdbcType=VARCHAR}, #{inserttime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+      #{outaccount,jdbcType=VARCHAR}, #{inaccount,jdbcType=VARCHAR}, NOW(),
+      NOW())
   </insert>
   <insert id="insertSelective" keyColumn="SERIALNO" keyProperty="serialno" parameterType="com.oldduck.home.rich.dto.BillDetailDto" useGeneratedKeys="true">
     insert into BILL_DETAIL

@@ -24,9 +24,12 @@ public class BillController {
     @RequestMapping("/addBill")
     public String addBill(@RequestBody BillDetailDto billDetailDto) {
         billManager.addBill(billDetailDto);
-        return "";
+        return "html/index.html";
     }
 
-    
+    @RequestMapping("/delBill")
+    public String delBill() {
+        return "html/index.html";
+    }
     
 }
