@@ -73,7 +73,7 @@
 
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
-                            <input type="text" class="form-control" id="date" placeholder="日期">
+                            <input type="date" class="form-control" id="date" >
                         </div>
                         <div class="form-group" hidden id="inAccountDev">
                             <label for="inAccount" class="control-label">转入账户:</label>
@@ -96,24 +96,24 @@
     <div class="row marketing">
         <div class="col-lg-6">
             <h4>今日支出</h4>
-            <p>12</p>
+            <p id="curAmount"></p>
 
             <h4>本月剩余</h4>
-            <p>-2000</p>
+            <p id="monthSurplus"></p>
 
             <h4>剩余日均</h4>
-            <p>0</p>
+            <p id="monthAve"></p>
         </div>
 
         <div class="col-lg-6">
             <h4>本月支出</h4>
-            <p>10000</p>
+            <p id="monthAmountCount"></p>
 
             <h4>本月预算</h4>
-            <p>8000</p>
+            <p id="bugget"></p>
 
             <h4>距结算日</h4>
-            <p>2</p>
+            <p id="days"></p>
         </div>
     </div>
 
@@ -153,11 +153,25 @@
                 dataType: "json",
                 contentType: "application/json",
                 url: "/bill/queryDetail",
-                data: {"userId": "odinc"},//不需要传入数据就没传
+                data: "odinc",
                 success: function (result) {
-                    console.log(result);
+                    $("#curAmount").append(result.curAmount);
+                    $("#monthSurplus").append(result.monthSurplus);
+                    $("#monthAve").append(result.monthAve);
+
+                    $("#monthAmountCount").append(result.monthAmountCount);
+                    $("#bugget").append(result.bugget);
+                    $("#days").append(result.days);
                 }
             });
+            var now = new Date();
+            //格式化日，如果小于9，前面补0
+            var day = ('0' + now.getDate()).slice(-2);
+            //格式化月，如果小于9，前面补0
+            var month = ('0' + (now.getMonth() + 1)).slice(-2);
+            //拼装完整日期格式
+            var today = now.getFullYear()+'-'+(month)+'-'+(day) ;
+            $("#date").value(today);
         }
     </script>
 

@@ -1,5 +1,6 @@
 package com.oldduck.home.rich;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.oldduck.home.rich.dto.BillDetailDto;
 import com.oldduck.home.rich.manager.BillManager;
 import com.oldduck.home.rich.mapper.BillDetailMapper;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class RichApplicationTests {
@@ -42,7 +44,7 @@ class RichApplicationTests {
         billDetail.setMoneytype("156");
         billDetail.setFlow("O");
         billDetail.setBilltype("1");
-        billDetail.setBilldate("20201029");
+        billDetail.setBilldate("20201030");
         billDetail.setOutaccount("165111161");
         billDetail.setInaccount("");
         billManager.addBill(billDetail);
@@ -52,6 +54,12 @@ class RichApplicationTests {
     void billMapper() {
         List<BillDetailDto> detailDtos = billDetailMapper.selectDataByUseridYeatMonth("odinc", "202010");
         System.out.println(detailDtos.size());
+    }
+
+    @Test
+    void billQuery() {
+        Map<String, Object> map = billManager.queryDetail("odinc");
+        System.out.println(JSONUtils.toJSONString(map));
     }
 
 }

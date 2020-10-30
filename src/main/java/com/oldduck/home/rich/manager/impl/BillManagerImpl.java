@@ -66,11 +66,17 @@ public class BillManagerImpl implements BillManager {
         int day = c.get(Calendar.DAY_OF_MONTH);
         int last = c.getActualMaximum(Calendar.DAY_OF_MONTH);
         BigDecimal diff = new BigDecimal(last - day + 1);
+        //今日支出
         map.put("curAmount", curAmount);
+        //月总支出
         map.put("monthAmountCount", monthAmountCount);
+        //月预算
         map.put("bugget", buggetDto == null ? 0 : buggetDto.getBudget());
+        //本月剩余
         map.put("monthSurplus", buggetDto == null ? 0 : buggetDto.getBudget().subtract(monthAmountCount));
+        //月平均
         map.put("monthAve", buggetDto == null ? 0 : (buggetDto.getBudget().subtract(monthAmountCount)).divide(diff));
+        //剩余天数
         map.put("days", diff);
         logger.info("queryDetail start user:{},yearMonth:{},resultMap:{}", userId, curDate, JSONUtils.toJSONString(map));
         return map;
