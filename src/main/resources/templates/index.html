@@ -61,7 +61,7 @@
 
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
                                     data-toggle="dropdown" id="flowName">
-                                <span class="buttonText">支出</span>
+                                <span id="buttonText">支出</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
@@ -70,18 +70,32 @@
                                 <li><a href="#" onclick="shows($(this).text())">支出</a></li>
                             </ul>
                         </div>
-
+                        <!--日期-->
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
-                            <input type="date" class="form-control" id="date" >
+                            <input type="date" class="form-control" id="date">
                         </div>
-                        <div class="form-group" hidden id="inAccountDev">
-                            <label for="inAccount" class="control-label">转入账户:</label>
-                            <input type="text" class="form-control" id="inAccount" placeholder="">
+                        <!--转入账户-->
+                        <input type="hidden" id="inAccount" value="" name="inAccount"/>
+                        <div class="form-group" id="inAccountDev" hidden="hidden">
+                            <label for="inAccountName" class="control-label">转入账户:</label>
+                            <button type="button" class="btn btn-default dropdown-toggle form-control"
+                                    data-toggle="dropdown" id="inAccountName">
+                                <span id="defaultInAccountName" class="defaultAccountName"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" id="inAccountMenu"></ul>
                         </div>
+                        <!--转出账户-->
+                        <input type="hidden" id="outAccount" value="" name="outAccount"/>
                         <div class="form-group" id="outAccountDev">
-                            <label for="outAccount" class="control-label">转出账户:</label>
-                            <input type="text" class="form-control" id="outAccount" placeholder="">
+                            <label for="outAccountName" class="control-label">转出账户:</label>
+                            <button type="button" class="btn btn-default dropdown-toggle form-control"
+                                    data-toggle="dropdown" id="outAccountName">
+                                <span id="defaultOutAccountName" class="defaultAccountName"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu accountMenu" role="menu" id="outAccountMenu"></ul>
                         </div>
                     </form>
                 </div>
@@ -127,7 +141,7 @@
         });
 
         function shows(a) {
-            $('.buttonText').text(a);
+            $('#buttonText').text(a);
             $('#flow').attr('value', convert(a));
         }
 
@@ -170,9 +184,36 @@
             //格式化月，如果小于9，前面补0
             var month = ('0' + (now.getMonth() + 1)).slice(-2);
             //拼装完整日期格式
-            var today = now.getFullYear()+'-'+(month)+'-'+(day) ;
-            $("#date").value(today);
+            var today = now.getFullYear() + '-' + (month) + '-' + (day);
+            document.getElementById('date').value = (today);
+            //刷新账户
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/account/queryAccount",
+                data: "odinc",
+                success: function (result) {
+                    $('.defaultAccountName').text(result[0].account);
+                    $(".accountMenu").html("");
+                    $.each(result, function (index, data) {
+                        $("#inAccountMenu").append("<li><a href='#' onclick='showInAccounts($(this).text())'>" + data.account + "</a></li>");
+                        $("#outAccountMenu").append("<li><a href='#' onclick='showOutAccounts($(this).text())'>" + data.account + "</a></li>");
+                    })
+                }
+            });
         }
+
+        function showInAccounts(account) {
+            $('#defaultInAccountName').text(account);
+            $('#inAccount').attr('value', account);
+        }
+        function showOutAccounts(account) {
+            $('#defaultOutAccountName').text(account);
+            $('#outAccount').attr('value', account);
+        }
+
+
     </script>
 
 </div>
