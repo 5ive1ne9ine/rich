@@ -1,5 +1,6 @@
 package com.oldduck.home.rich.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description：goto
  * @date ：Created in 2020/10/29 20:36
  */
+@Controller
 public class GotoController {
 
     @RequestMapping("/")

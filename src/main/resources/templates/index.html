@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +11,12 @@
 
     <title>Home Bill</title>
     <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <!-- Custom styles for this template -->
-    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/jumbotron-narrow.css}">
 
-        <script src="../static/js/bootstrap.js"></script>
-        <script src="../static/js/jquery.min.js"></script>
-<!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
-<!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
 </head>
 
 <body>
@@ -57,11 +55,7 @@
                             <input type="text" class="form-control" id="amount" placeholder="输入金额">
                         </div>
 
-                        <!--                        <div class="form-group">-->
-                        <!--                            <label for="flow" class="control-label">支出/收入/转账:</label>-->
-                        <!--                            <input type="text" class="form-control" id="flow" placeholder="">-->
-                        <!--                        </div>-->
-                        <input type="hidden" id="flow" value="O" name="flow" />
+                        <input type="hidden" id="flow" value="O" name="flow"/>
                         <div class="btn-group form-group">
                             <label for="flowName" class="control-label">支出/收入/转账:</label>
 
@@ -76,7 +70,6 @@
                                 <li><a href="#" onclick="shows($(this).text())">支出</a></li>
                             </ul>
                         </div>
-
 
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
@@ -128,7 +121,11 @@
         <p>&copy; 2020 Company, Inc.</p>
     </footer>
 
-    <script>
+    <script th:inline="javascript">
+        $(function () {
+            updateDetail();
+        });
+
         function shows(a) {
             $('.buttonText').text(a);
             $('#flow').attr('value', convert(a));
@@ -148,6 +145,19 @@
                 $('#inAccountDev').attr('hidden', false);
                 return "T";
             }
+        }
+
+        function updateDetail() {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/bill/queryDetail",
+                data: {"userId": "odinc"},//不需要传入数据就没传
+                success: function (result) {
+                    console.log(result);
+                }
+            });
         }
     </script>
 
