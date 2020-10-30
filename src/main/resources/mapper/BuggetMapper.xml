@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oldduck.home.rich.mapper.BuggetMapper">
+    <resultMap id="BaseResultMap" type="com.oldduck.home.rich.dto.BuggetDto">
+        <id column="SERIALNO" jdbcType="INTEGER" property="serialno"/>
+        <result column="USERID" jdbcType="VARCHAR" property="userid"/>
+        <result column="BUDGET" jdbcType="DECIMAL" property="budget"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    SERIALNO, USERID, BUDGET
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from BUGGET
+        where SERIALNO = #{serialno,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BUGGET
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="SERIALNO" keyProperty="serialno" parameterType="com.oldduck.home.rich.dto.BuggetDto"
+            useGeneratedKeys="true">
+    insert into BUGGET (USERID, BUDGET)
+    values (#{userid,jdbcType=VARCHAR}, #{budget,jdbcType=DECIMAL})
+  </insert>
+    <insert id="insertSelective" keyColumn="SERIALNO" keyProperty="serialno"
+            parameterType="com.oldduck.home.rich.dto.BuggetDto" useGeneratedKeys="true">
+        insert into BUGGET
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                USERID,
+            </if>
+            <if test="budget != null">
+                BUDGET,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="budget != null">
+                #{budget,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.oldduck.home.rich.dto.BuggetDto">
+        update BUGGET
+        <set>
+            <if test="userid != null">
+                USERID = #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="budget != null">
+                BUDGET = #{budget,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where SERIALNO = #{serialno,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.oldduck.home.rich.dto.BuggetDto">
+    update BUGGET
+    set USERID = #{userid,jdbcType=VARCHAR},
+      BUDGET = #{budget,jdbcType=DECIMAL}
+    where SERIALNO = #{serialno,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectByUserid" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from BUGGET where userid = #{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>
