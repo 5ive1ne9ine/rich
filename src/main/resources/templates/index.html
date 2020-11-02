@@ -49,10 +49,10 @@
                     <h4 class="modal-title" id="myModalLabel">增加流水</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="/bill/addBill" id="addBillForm">
                         <div class="form-group">
                             <label for="amount" class="control-label">金额:</label>
-                            <input type="text" class="form-control" id="amount" placeholder="输入金额">
+                            <input type="text" class="form-control" id="amount" name="amount" placeholder="输入金额">
                         </div>
                         <!-- 收入/支出 -->
                         <input type="hidden" th:id="flow" id="flow" value="O" name="flow"/>
@@ -71,7 +71,7 @@
                             </ul>
                         </div>
                         <!--类型-->
-                        <input type="hidden" id="budgetType" value="1" name="budgetType"/>
+                        <input type="hidden" id="budgetType" value="1" name="billtype"/>
                         <div class="form-group btn-group" id="budgetTypeDiv">
                             <label for="budgetTypeName" class="control-label">来源/去处:</label>
 
@@ -85,10 +85,10 @@
                         <!--日期-->
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
-                            <input type="date" class="form-control" id="date">
+                            <input type="date" class="form-control" id="date" name="billdate">
                         </div>
                         <!--转入账户-->
-                        <input type="hidden" id="inAccount" value="" name="inAccount"/>
+                        <input type="hidden" id="inAccount" value="" name="inaccount"/>
                         <div class="form-group" id="inAccountDiv" hidden>
                             <label for="inAccountName" class="control-label">转入账户:</label>
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
@@ -99,7 +99,7 @@
                             <ul class="dropdown-menu accountMenu" role="menu" id="inAccountMenu"></ul>
                         </div>
                         <!--转出账户-->
-                        <input type="hidden" id="outAccount" value="" name="outAccount"/>
+                        <input type="hidden" id="outAccount" value="" name="outaccount"/>
                         <div class="form-group" id="outAccountDiv">
                             <label for="outAccountName" class="control-label">转出账户:</label>
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
@@ -113,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">添加</button>
+                    <button type="button" class="btn btn-primary" onclick="addBillForm()">添加</button>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2020 Company, Inc.</p>
+        <p>&copy; 2020 MinMin Company, Inc.</p>
     </footer>
 
     <script th:inline="javascript">
@@ -217,10 +217,11 @@
                     $("#budgetTypeMenu").html("");
                     $.each(result, function (index, data) {
                         $("#budgetTypeMenu").append("<li><a href='#' onclick='setBudgetType($(this).text())'>" + data.explain + "</a></li>");
-                    })
+                    });
                 }
             });
         }
+
         //收入/支出项
         function setBudgetType(type) {
             $('#budgetTypeButtonText').text(type);
@@ -237,11 +238,13 @@
                 }
             });
         }
+
         //收入账户
         function showInAccounts(account) {
             $('#defaultInAccountName').text(account);
             $('#inAccount').attr('value', account);
         }
+
         //支出账户
         function showOutAccounts(account) {
             $('#defaultOutAccountName').text(account);
@@ -274,6 +277,10 @@
                 $('#budgetTypeDiv').attr('hidden', true);
                 return "T";
             }
+        }
+
+        function addBillForm() {
+            document.getElementById('addBillForm').submit();
         }
     </script>
 
