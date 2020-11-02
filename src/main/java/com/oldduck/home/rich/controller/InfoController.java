@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -37,11 +38,17 @@ public class InfoController {
         return new Gson().toJson(accountInfos);
     }
 
-    @RequestMapping(value = "/queryBudgetType", produces = "text/html;charset=GBK")
+    @RequestMapping(value = "/queryBudgetType")
     @ResponseBody
-    public String budgetTypeInfo() {
-        logger.info(new Gson().toJson(BudgetType.allToMap()));
-        return new Gson().toJson(BudgetType.allToMap());
+    public String budgetTypeInfo(@RequestBody String flow) {
+        logger.info("budgetTypeInfo flow:{}", flow);
+        return new Gson().toJson(BudgetType.allToMapByFlowCondition(flow));
+    }
+
+    @RequestMapping("/queryBudgetCode")
+    @ResponseBody
+    public String budgetCode(@RequestBody String explain) {
+        return BudgetType.getCodeByExplain(explain);
     }
 
 }

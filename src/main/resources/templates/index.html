@@ -55,7 +55,7 @@
                             <input type="text" class="form-control" id="amount" placeholder="输入金额">
                         </div>
                         <!-- 收入/支出 -->
-                        <input type="hidden" id="flow" value="O" name="flow"/>
+                        <input type="hidden" th:id="flow" id="flow" value="O" name="flow"/>
                         <div class="btn-group form-group">
                             <label for="flowName" class="control-label">支出/收入/转账:</label>
 
@@ -72,7 +72,7 @@
                         </div>
                         <!--类型-->
                         <input type="hidden" id="budgetType" value="1" name="budgetType"/>
-                        <div class="btn-group form-group">
+                        <div class="form-group btn-group" id="budgetTypeDiv">
                             <label for="budgetTypeName" class="control-label">来源/去处:</label>
 
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
@@ -80,7 +80,7 @@
                                 <span id="budgetTypeButtonText">餐饮</span>
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" role="menu"></ul>
+                            <ul class="dropdown-menu" role="menu" id="budgetTypeMenu"></ul>
                         </div>
                         <!--日期-->
                         <div class="form-group">
@@ -89,7 +89,7 @@
                         </div>
                         <!--转入账户-->
                         <input type="hidden" id="inAccount" value="" name="inAccount"/>
-                        <div class="form-group" id="inAccountDev" hidden="hidden">
+                        <div class="form-group" id="inAccountDiv" hidden>
                             <label for="inAccountName" class="control-label">转入账户:</label>
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
                                     data-toggle="dropdown" id="inAccountName">
@@ -100,7 +100,7 @@
                         </div>
                         <!--转出账户-->
                         <input type="hidden" id="outAccount" value="" name="outAccount"/>
-                        <div class="form-group" id="outAccountDev">
+                        <div class="form-group" id="outAccountDiv">
                             <label for="outAccountName" class="control-label">转出账户:</label>
                             <button type="button" class="btn btn-default dropdown-toggle form-control"
                                     data-toggle="dropdown" id="outAccountName">
@@ -150,31 +150,13 @@
     <script th:inline="javascript">
         $(function () {
             updateDetail();
+            initDate();
+            updateAccount();
+            updateBudgetType();
         });
 
-        function shows(a) {
-            $('#buttonText').text(a);
-            $('#flow').attr('value', convert(a));
-        }
-
-        function convert(s) {
-            if (s == '支出') {
-                $('#outAccountDev').attr('hidden', false);
-                $('#inAccountDev').attr('hidden', true);
-                return "O";
-            } else if (s == '收入') {
-                $('#outAccountDev').attr('hidden', true);
-                $('#inAccountDev').attr('hidden', false);
-                return "I"
-            } else if (s == '转账') {
-                $('#outAccountDev').attr('hidden', false);
-                $('#inAccountDev').attr('hidden', false);
-                return "T";
-            }
-        }
-
+        //刷新支出/预算等信息
         function updateDetail() {
-            //刷新支出/预算等信息
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -191,13 +173,19 @@
                     $("#days").append(result.days);
                 }
             });
-            //初始化日期控件
+        }
+
+        //初始化日期控件
+        function initDate() {
             var now = new Date();
             var day = ('0' + now.getDate()).slice(-2);
             var month = ('0' + (now.getMonth() + 1)).slice(-2);
             var today = now.getFullYear() + '-' + (month) + '-' + (day);
             document.getElementById('date').value = (today);
-            //刷新账户
+        }
+
+        //刷新账户
+        function updateAccount() {
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -210,33 +198,83 @@
                     $.each(result, function (index, data) {
                         $("#inAccountMenu").append("<li><a href='#' onclick='showInAccounts($(this).text())'>" + data.account + "</a></li>");
                         $("#outAccountMenu").append("<li><a href='#' onclick='showOutAccounts($(this).text())'>" + data.account + "</a></li>");
-                    })
+                    });
                 }
             });
-            //刷新预算类型
+        }
+
+        //刷新预算类型
+        function updateBudgetType() {
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 url: "/info/queryBudgetType",
-                data: "odinc",
+                data: $('#flow').val(),
                 success: function (result) {
-                    console.log(result);
+                    $('#budgetTypeButtonText').text(result[0].explain);
+                    $('#budgetType').text(result[0].code);
+                    $("#budgetTypeMenu").html("");
+                    $.each(result, function (index, data) {
+                        $("#budgetTypeMenu").append("<li><a href='#' onclick='setBudgetType($(this).text())'>" + data.explain + "</a></li>");
+                    })
                 }
             });
         }
-
+        //收入/支出项
+        function setBudgetType(type) {
+            $('#budgetTypeButtonText').text(type);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                // async: false,
+                url: "/info/queryBudgetCode",
+                data: type,
+                success: function (result) {
+                    $('#budgetType').attr('value', result);
+                    console.log($('#budgetType').val());
+                }
+            });
+        }
+        //收入账户
         function showInAccounts(account) {
             $('#defaultInAccountName').text(account);
             $('#inAccount').attr('value', account);
         }
-
+        //支出账户
         function showOutAccounts(account) {
             $('#defaultOutAccountName').text(account);
             $('#outAccount').attr('value', account);
         }
 
+        function shows(a) {
+            $('#buttonText').text(a);
+            $('#flow').attr('value', convert(a));
+            if (a == '转账') {
+                return;
+            }
+            updateBudgetType();
+        }
 
+        function convert(s) {
+            if (s == '支出') {
+                $('#outAccountDiv').attr('hidden', false);
+                $('#inAccountDiv').attr('hidden', true);
+                $('#budgetTypeDiv').attr('hidden', false);
+                return "O";
+            } else if (s == '收入') {
+                $('#outAccountDiv').attr('hidden', true);
+                $('#inAccountDiv').attr('hidden', false);
+                $('#budgetTypeDiv').attr('hidden', false);
+                return "I"
+            } else if (s == '转账') {
+                $('#outAccountDiv').attr('hidden', false);
+                $('#inAccountDiv').attr('hidden', false);
+                $('#budgetTypeDiv').attr('hidden', true);
+                return "T";
+            }
+        }
     </script>
 
 </div>

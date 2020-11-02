@@ -46,9 +46,12 @@ public enum BudgetType {
         return flow;
     }
 
-    public static List allToMap() {
+    public static List allToMapByFlowCondition(String flow) {
         List<Map<String, String>> list = new ArrayList<>();
         for (BudgetType budgetType : BudgetType.values()) {
+            if (StringUtils.isNotEmpty(flow) && !StringUtils.equals(flow, budgetType.getFlow())) {
+                continue;
+            }
             Map<String, String> map = new HashMap<>();
             map.put("code", budgetType.getCode());
             map.put("explain", budgetType.getExplain());
@@ -64,10 +67,19 @@ public enum BudgetType {
         this.flow = flow;
     }
 
-    public String getExplainByCode(String code) {
+    public static String getExplainByCode(String code) {
         for (BudgetType type : BudgetType.values()) {
             if (StringUtils.equals(type.getCode(), code)) {
                 return type.getExplain();
+            }
+        }
+        return null;
+    }
+
+    public static String getCodeByExplain(String explain) {
+        for (BudgetType budgetType : BudgetType.values()) {
+            if (StringUtils.equals(explain, budgetType.getExplain())) {
+                return budgetType.getCode();
             }
         }
         return null;
