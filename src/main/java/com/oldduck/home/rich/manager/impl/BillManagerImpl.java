@@ -4,11 +4,11 @@ import com.alibaba.druid.support.json.JSONUtils;
 import com.oldduck.home.rich.common.Constant;
 import com.oldduck.home.rich.common.ResultCode;
 import com.oldduck.home.rich.dto.BillDetailDto;
-import com.oldduck.home.rich.dto.BuggetDto;
+import com.oldduck.home.rich.dto.BudgetDto;
 import com.oldduck.home.rich.exception.ApiException;
 import com.oldduck.home.rich.manager.BillManager;
 import com.oldduck.home.rich.mapper.BillDetailMapper;
-import com.oldduck.home.rich.mapper.BuggetMapper;
+import com.oldduck.home.rich.mapper.BudgetMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class BillManagerImpl implements BillManager {
     @Autowired
     private BillDetailMapper billDetailMapper;
     @Autowired
-    private BuggetMapper buggetMapper;
+    private BudgetMapper BudgetMapper;
 
     @Override
     public void addBill(BillDetailDto billDetailDto) {
@@ -53,7 +53,7 @@ public class BillManagerImpl implements BillManager {
         String curDate = YEAR_MONTH_DAY_FORMAT.format(new Date());
         logger.info("queryDetail start user:{},yearMonth:{}", userId, curDate);
         List<BillDetailDto> details = billDetailMapper.selectDataByUseridYeatMonth(userId, curDate.substring(0, 6));
-        BuggetDto buggetDto = buggetMapper.selectByUserid(userId);
+        BudgetDto BudgetDto = BudgetMapper.selectByUserid(userId);
         BigDecimal curAmount = new BigDecimal(0);
         BigDecimal monthAmountCount = new BigDecimal(0);
         for (BillDetailDto detail : details) {
@@ -71,11 +71,11 @@ public class BillManagerImpl implements BillManager {
         //月总支出
         map.put("monthAmountCount", monthAmountCount);
         //月预算
-        map.put("bugget", buggetDto == null ? 0 : buggetDto.getBudget());
+        map.put("Budget", BudgetDto == null ? 0 : BudgetDto.getBudget());
         //本月剩余
-        map.put("monthSurplus", buggetDto == null ? 0 : buggetDto.getBudget().subtract(monthAmountCount));
+        map.put("monthSurplus", BudgetDto == null ? 0 : BudgetDto.getBudget().subtract(monthAmountCount));
         //月平均
-        map.put("monthAve", buggetDto == null ? 0 : (buggetDto.getBudget().subtract(monthAmountCount)).divide(diff));
+        map.put("monthAve", BudgetDto == null ? 0 : (BudgetDto.getBudget().subtract(monthAmountCount)).divide(diff, 2));
         //剩余天数
         map.put("days", diff);
         logger.info("queryDetail start user:{},yearMonth:{},resultMap:{}", userId, curDate, JSONUtils.toJSONString(map));

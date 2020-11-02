@@ -54,7 +54,7 @@
                             <label for="amount" class="control-label">金额:</label>
                             <input type="text" class="form-control" id="amount" placeholder="输入金额">
                         </div>
-
+                        <!-- 收入/支出 -->
                         <input type="hidden" id="flow" value="O" name="flow"/>
                         <div class="btn-group form-group">
                             <label for="flowName" class="control-label">支出/收入/转账:</label>
@@ -70,6 +70,18 @@
                                 <li><a href="#" onclick="shows($(this).text())">支出</a></li>
                             </ul>
                         </div>
+                        <!--类型-->
+                        <input type="hidden" id="budgetType" value="1" name="budgetType"/>
+                        <div class="btn-group form-group">
+                            <label for="budgetTypeName" class="control-label">来源/去处:</label>
+
+                            <button type="button" class="btn btn-default dropdown-toggle form-control"
+                                    data-toggle="dropdown" id="budgetTypeName">
+                                <span id="budgetTypeButtonText">餐饮</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu"></ul>
+                        </div>
                         <!--日期-->
                         <div class="form-group">
                             <label for="date" class="control-label">日期:</label>
@@ -84,7 +96,7 @@
                                 <span id="defaultInAccountName" class="defaultAccountName"></span>
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" role="menu" id="inAccountMenu"></ul>
+                            <ul class="dropdown-menu accountMenu" role="menu" id="inAccountMenu"></ul>
                         </div>
                         <!--转出账户-->
                         <input type="hidden" id="outAccount" value="" name="outAccount"/>
@@ -124,7 +136,7 @@
             <p id="monthAmountCount"></p>
 
             <h4>本月预算</h4>
-            <p id="bugget"></p>
+            <p id="Budget"></p>
 
             <h4>距结算日</h4>
             <p id="days"></p>
@@ -162,6 +174,7 @@
         }
 
         function updateDetail() {
+            //刷新支出/预算等信息
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -174,16 +187,14 @@
                     $("#monthAve").append(result.monthAve);
 
                     $("#monthAmountCount").append(result.monthAmountCount);
-                    $("#bugget").append(result.bugget);
+                    $("#Budget").append(result.Budget);
                     $("#days").append(result.days);
                 }
             });
+            //初始化日期控件
             var now = new Date();
-            //格式化日，如果小于9，前面补0
             var day = ('0' + now.getDate()).slice(-2);
-            //格式化月，如果小于9，前面补0
             var month = ('0' + (now.getMonth() + 1)).slice(-2);
-            //拼装完整日期格式
             var today = now.getFullYear() + '-' + (month) + '-' + (day);
             document.getElementById('date').value = (today);
             //刷新账户
@@ -191,7 +202,7 @@
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                url: "/account/queryAccount",
+                url: "/info/queryAccount",
                 data: "odinc",
                 success: function (result) {
                     $('.defaultAccountName').text(result[0].account);
@@ -202,12 +213,25 @@
                     })
                 }
             });
+            //刷新预算类型
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/info/queryBudgetType",
+                data: "odinc",
+                success: function (result) {
+                    window.alert(result);
+                    console.log(result);
+                }
+            });
         }
 
         function showInAccounts(account) {
             $('#defaultInAccountName').text(account);
             $('#inAccount').attr('value', account);
         }
+
         function showOutAccounts(account) {
             $('#defaultOutAccountName').text(account);
             $('#outAccount').attr('value', account);

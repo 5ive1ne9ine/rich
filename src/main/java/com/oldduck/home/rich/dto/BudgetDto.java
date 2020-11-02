@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * BUGGET
+ * Budget
  * @author 
  */
-public class BuggetDto implements Serializable {
+public class BudgetDto implements Serializable {
     /**
      * 序列号
      */
@@ -22,6 +22,11 @@ public class BuggetDto implements Serializable {
      * 预算
      */
     private BigDecimal budget;
+
+    /**
+     * 预算类型
+     */
+    private String budgettype;
 
     private static final long serialVersionUID = 1L;
 
@@ -47,5 +52,17 @@ public class BuggetDto implements Serializable {
 
     public void setBudget(BigDecimal budget) {
         this.budget = budget;
+    }
+
+    public String getBudgettype() {
+        return budgettype;
+    }
+
+    public void setBudgettype(String budgettype) {
+        this.budgettype = budgettype;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }
