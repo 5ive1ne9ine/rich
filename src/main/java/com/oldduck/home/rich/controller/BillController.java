@@ -42,6 +42,7 @@ public class BillController {
                           ) {
         try {
             BillDetailDto detailDto = new BillDetailDto();
+            detailDto.setUserid("odinc");
             detailDto.setAmount(new BigDecimal(amount));
             detailDto.setFlow(flow);
             detailDto.setBilltype(billType);
@@ -52,13 +53,13 @@ public class BillController {
         } catch (Exception e) {
             logger.error("addBill failed:", e);
         }
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/delBill")
     public String delBill(@RequestBody String serialno) {
         billManager.deleteBill(serialno);
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/queryDetail")
