@@ -24,7 +24,7 @@ public class BillDetailDto implements Serializable {
     /**
      * 币种.156人民币
      */
-    private String moneytype;
+    private String moneytype = "156";
 
     /**
      * 收支,I收入O支出
