@@ -7,47 +7,47 @@ import java.util.Date;
 
 public class BillDetailDto implements Serializable {
     /**
-     * æµæ°´å·
+     * Á÷Ë®ºÅ
      */
     private Integer serialno;
 
     /**
-     * è´¦å·,åŒä¸€ä¸ªäººå”¯ä¸€
+     * ÕËºÅ,Í¬Ò»¸öÈËÎ¨Ò»
      */
     private String userid;
 
     /**
-     * æµæ°´é‡‘é¢
+     * Á÷Ë®½ğ¶î
      */
     private BigDecimal amount;
 
     /**
-     * å¸ç§.156äººæ°‘å¸
+     * ±ÒÖÖ.156ÈËÃñ±Ò
      */
     private String moneytype;
 
     /**
-     * æ”¶æ”¯,Iæ”¶å…¥Oæ”¯å‡º
+     * ÊÕÖ§,IÊÕÈëOÖ§³ö
      */
     private String flow;
 
     /**
-     * æµæ°´ç±»å‹
+     * Á÷Ë®ÀàĞÍ
      */
     private String billtype;
 
     /**
-     * æµæ°´æ—¥æœŸ
+     * Á÷Ë®ÈÕÆÚ
      */
     private String billdate;
 
     /**
-     * FLOWä¸ºOæ—¶,è®°å½•æ”¯å‡ºçš„è´¦å·
+     * FLOWÎªOÊ±,¼ÇÂ¼Ö§³öµÄÕËºÅ
      */
     private String outaccount;
 
     /**
-     * FLOWä¸ºIæ—¶,è®°å½•æ”¶å…¥çš„è´¦å·
+     * FLOWÎªIÊ±,¼ÇÂ¼ÊÕÈëµÄÕËºÅ
      */
     private String inaccount;
 

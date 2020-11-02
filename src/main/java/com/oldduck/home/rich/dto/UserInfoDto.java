@@ -11,12 +11,12 @@ public class UserInfoDto implements Serializable {
     private Integer serialno;
 
     /**
-     * ç”±ç³»ç»Ÿç”Ÿæˆ
+     * ÓÉÏµÍ³Éú³É
      */
     private String userid;
 
     /**
-     * ç”¨æˆ·æ³¨å†Œ
+     * ÓÃ»§×¢²á
      */
     private String username;
 
@@ -29,7 +29,7 @@ public class UserInfoDto implements Serializable {
     private String address;
 
     /**
-     * å®¢æˆ·å§“å
+     * ¿Í»§ĞÕÃû
      */
     private String custname;
 

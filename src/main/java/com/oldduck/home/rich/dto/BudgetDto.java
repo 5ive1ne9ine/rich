@@ -9,22 +9,22 @@ import java.math.BigDecimal;
  */
 public class BudgetDto implements Serializable {
     /**
-     * åºåˆ—å·
+     * ĞòÁĞºÅ
      */
     private Integer serialno;
 
     /**
-     * ç”¨æˆ·
+     * ÓÃ»§
      */
     private String userid;
 
     /**
-     * é¢„ç®—
+     * Ô¤Ëã
      */
     private BigDecimal budget;
 
     /**
-     * é¢„ç®—ç±»å‹
+     * Ô¤ËãÀàĞÍ
      */
     private String budgettype;
 

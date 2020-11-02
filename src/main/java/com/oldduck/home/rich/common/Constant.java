@@ -1,21 +1,21 @@
 package com.oldduck.home.rich.common;
 
 /**
- * @author 锛歟x-caihh
- * @description锛歝onstant
- * @date 锛欳reated in 2020/10/29 10:29
+ * @author ：ex-caihh
+ * @description：constant
+ * @date ：Created in 2020/10/29 10:29
  */
 public class Constant {
     /**
-     * 鏀跺叆
+     * 收入
      */
     public static final String FLOW_IN = "I";
     /**
-     * 鏀嚭
+     * 支出
      */
     public static final String FLOW_OUT = "O";
     /**
-     * 杞处
+     * 转账
      */
     public static final String FLOW_TRANSFER = "T";
 }

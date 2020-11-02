@@ -3,9 +3,9 @@ package com.oldduck.home.rich.exception;
 import com.oldduck.home.rich.common.ResultCode;
 
 /**
- * @author ï¼šex-caihh
- * @descriptionï¼š
- * @date ï¼šCreated in 2020/10/29 09:59
+ * @author £ºex-caihh
+ * @description£º
+ * @date £ºCreated in 2020/10/29 09:59
  */
 public class ApiException extends RuntimeException {
 

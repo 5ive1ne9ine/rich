@@ -17,9 +17,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 /**
- * @author ï¼šex-caihh
- * @descriptionï¼šdatasource
- * @date ï¼šCreated in 2020/10/27 14:31
+ * @author £ºex-caihh
+ * @description£ºdatasource
+ * @date £ºCreated in 2020/10/27 14:31
  */
 @Configuration
 @MapperScan(basePackages = "com.oldduck.home.rich.mapper")
@@ -45,7 +45,7 @@ public class DataSourceConfig {
 
 
     /**
-     * ç”Ÿæˆæ•°æ®æºï¼Œ@Primaryæ³¨è§£å£°æ˜ä¸ºé»˜è®¤æ•°æ®æº
+     * Éú³ÉÊı¾İÔ´£¬@Primary×¢½âÉùÃ÷ÎªÄ¬ÈÏÊı¾İÔ´
      *
      * @return
      */
@@ -58,7 +58,7 @@ public class DataSourceConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
-        //è¿æ¥æ± é…ç½®
+        //Á¬½Ó³ØÅäÖÃ
         dataSource.setMaxActive(maxPoolSize);
         dataSource.setMinIdle(minPoolSize);
         dataSource.setInitialSize(initialPoolSize);
@@ -77,7 +77,7 @@ public class DataSourceConfig {
     }
 
     /**
-     * åˆ›å»ºsqlSessionFactory
+     * ´´½¨sqlSessionFactory
      *
      * @param datasource
      * @return
@@ -93,7 +93,7 @@ public class DataSourceConfig {
     }
 
     /**
-     * é…ç½®äº‹åŠ¡ç®¡ç†
+     * ÅäÖÃÊÂÎñ¹ÜÀí
      *
      * @param datasource
      * @return

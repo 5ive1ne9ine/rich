@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author ï¼šex-caihh
- * @descriptionï¼šaccount
- * @date ï¼šCreated in 2020/10/30 15:47
+ * @author £ºex-caihh
+ * @description£ºaccount
+ * @date £ºCreated in 2020/10/30 15:47
  */
 @Component("accountManager")
 public class AccountManagerImpl implements AccountManager {

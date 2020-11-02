@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author ï¼šboom
- * @descriptionï¼šgoto
- * @date ï¼šCreated in 2020/10/29 20:36
+ * @author £ºboom
+ * @description£ºgoto
+ * @date £ºCreated in 2020/10/29 20:36
  */
 @Controller
 public class GotoController {

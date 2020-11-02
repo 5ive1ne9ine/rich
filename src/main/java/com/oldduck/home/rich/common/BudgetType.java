@@ -2,26 +2,31 @@ package com.oldduck.home.rich.common;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public enum BudgetType {
 
     /**
-     * æ”¶å…¥
+     * ÊÕÈë
      */
-    SALARY("A", "è–ªèµ„", "I"),
-    BONUS("B", "å¥–é‡‘", "I"),
-    PARTTIME("C", "å…¼èŒ", "I"),
-    EARNINGS("D", "æ”¶ç›Š", "I"),
+    SALARY("A", "Ğ½×Ê", "I"),
+    BONUS("B", "½±½ğ", "I"),
+    PARTTIME("C", "¼æÖ°", "I"),
+    EARNINGS("D", "ÊÕÒæ", "I"),
     /**
-     * æ”¯å‡º
+     * Ö§³ö
      */
-    REPAST("1", "é¤é¥®", "O"),
-    THESTORE("2", "æ—¥ç”¨ç™¾è´§", "O"),
-    TRAFFIC("3", "äº¤é€š", "O"),
-    ELECTRONICS("4", "ç”µå­äº§å“", "O"),
-    COSTUME("5", "æœé¥°", "O"),
-    MEDICAL("6", "åŒ»ç–—", "O"),
-    GIFT("7", "ç¤¼ç‰©", "O"),
-    CHARTER("8", "æˆ¿ç§Ÿ", "O"),
+    REPAST("1", "²ÍÒû", "O"),
+    THESTORE("2", "ÈÕÓÃ°Ù»õ", "O"),
+    TRAFFIC("3", "½»Í¨", "O"),
+    ELECTRONICS("4", "µç×Ó²úÆ·", "O"),
+    COSTUME("5", "·şÊÎ", "O"),
+    MEDICAL("6", "Ò½ÁÆ", "O"),
+    GIFT("7", "ÀñÎï", "O"),
+    CHARTER("8", "·¿×â", "O"),
     ;
 
 
@@ -39,6 +44,18 @@ public enum BudgetType {
 
     public String getFlow() {
         return flow;
+    }
+
+    public static List allToMap() {
+        List<Map<String, String>> list = new ArrayList<>();
+        for (BudgetType budgetType : BudgetType.values()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("code", budgetType.getCode());
+            map.put("explain", budgetType.getExplain());
+            map.put("flow", budgetType.getFlow());
+            list.add(map);
+        }
+        return list;
     }
 
     BudgetType(String code, String explain, String flow) {

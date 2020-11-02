@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @author ï¼šex-caihh
- * @descriptionï¼šaccount
- * @date ï¼šCreated in 2020/10/30 15:44
+ * @author £ºex-caihh
+ * @description£ºaccount
+ * @date £ºCreated in 2020/10/30 15:44
  */
 @Controller
 @RequestMapping("/info")
@@ -37,11 +37,11 @@ public class InfoController {
         return new Gson().toJson(accountInfos);
     }
 
-    @RequestMapping("/queryBudgetType")
+    @RequestMapping(value = "/queryBudgetType", produces = "text/html;charset=GBK")
     @ResponseBody
     public String budgetTypeInfo() {
-        logger.info(new Gson().toJson(BudgetType.values()));
-        return new Gson().toJson(BudgetType.values());
+        logger.info(new Gson().toJson(BudgetType.allToMap()));
+        return new Gson().toJson(BudgetType.allToMap());
     }
 
 }
