@@ -1,6 +1,7 @@
 package com.oldduck.home.rich.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * ACCOUNT_INFO
@@ -13,6 +14,10 @@ public class AccountInfoDto implements Serializable {
     private String userid;
 
     private String account;
+
+    private BigDecimal balance;
+
+    private String cardid;
 
     private String remark;
 
@@ -52,5 +57,21 @@ public class AccountInfoDto implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public String getCardid() {
+        return cardid;
+    }
+
+    public void setCardid(String cardid) {
+        this.cardid = cardid;
     }
 }

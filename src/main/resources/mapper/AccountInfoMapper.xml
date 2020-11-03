@@ -5,10 +5,12 @@
         <id column="SERIALNO" jdbcType="INTEGER" property="serialno"/>
         <result column="USERID" jdbcType="VARCHAR" property="userid"/>
         <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="BALANCE" jdbcType="VARCHAR" property="balance"/>
+        <result column="CARDID" jdbcType="VARCHAR" property="cardid"/>
         <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
     <sql id="Base_Column_List">
-    SERIALNO, USERID, ACCOUNT, REMARK
+    SERIALNO, USERID, ACCOUNT, BALANCE, CARDID, REMARK
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -22,9 +24,9 @@
   </delete>
     <insert id="insert" keyColumn="SERIALNO" keyProperty="serialno"
             parameterType="com.oldduck.home.rich.dto.AccountInfoDto" useGeneratedKeys="true">
-    insert into ACCOUNT_INFO (USERID, ACCOUNT, REMARK
+    insert into ACCOUNT_INFO (USERID, ACCOUNT, BALANCE, CARDID, REMARK
       )
-    values (#{userid,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+    values (#{userid,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, #{cardid,jdbcType=VARCHAR} #{remark,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" keyColumn="SERIALNO" keyProperty="serialno"
@@ -36,6 +38,12 @@
             </if>
             <if test="account != null">
                 ACCOUNT,
+            </if>
+            <if test="balance != null">
+                BALANCE,
+            </if>
+            <if test="cardid != null">
+                CARDID,
             </if>
             <if test="remark != null">
                 REMARK,
@@ -62,6 +70,12 @@
             <if test="account != null">
                 ACCOUNT = #{account,jdbcType=VARCHAR},
             </if>
+            <if test="balance != null">
+                BALANCE = #{balance,jdbcType=VARCHAR},
+            </if>
+            <if test="cardid != null">
+                CARDID = #{cardid,jdbcType=VARCHAR},
+            </if>
             <if test="remark != null">
                 REMARK = #{remark,jdbcType=VARCHAR},
             </if>
@@ -72,6 +86,8 @@
     update ACCOUNT_INFO
     set USERID = #{userid,jdbcType=VARCHAR},
       ACCOUNT = #{account,jdbcType=VARCHAR},
+      BALANCE = #{balance,jdbcType=VARCHAR},
+      CARDID = #{cardid,jdbcType=VARCHAR},
       REMARK = #{remark,jdbcType=VARCHAR}
     where SERIALNO = #{serialno,jdbcType=INTEGER}
   </update>
